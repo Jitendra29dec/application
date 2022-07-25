@@ -1,0 +1,6 @@
+{
+    "require": {
+        "mailchimp/marketing": "*"
+    }
+}
+

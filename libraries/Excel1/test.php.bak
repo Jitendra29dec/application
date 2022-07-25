@@ -1,0 +1,73 @@
+<?php
+  //require_once('OLEwriter.php');
+  //require_once('BIFFwriter.php');
+  require_once('Worksheet.php');
+  require_once('Workbook.php');
+
+  function HeaderingExcel($filename) {
+      header("Content-type: application/vnd.ms-excel");
+      header("Content-Disposition: attachment; filename=$filename" );
+      header("Expires: 0");
+      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+      header("Pragma: public");
+      }
+
+  // HTTP headers
+  HeaderingExcel('test.xls');
+
+  // Creating a workbook
+  $workbook = new excel("-");
+  // Creating the first worksheet
+  
+  $worksheet1 =& $workbook->add_worksheet('Student Report');
+  $worksheet1->set_column(1, 1, 40);
+  $worksheet1->set_row(1, 20);
+
+
+// Format for the headings
+  $formatot =& $workbook->add_format();
+  $formatot->set_size(10);
+  $formatot->set_align('center');
+  $formatot->set_color('white');
+  $formatot->set_pattern();
+  $formatot->set_fg_color('navy');
+  $worksheet1->write_string(0,0,"Id",$formatot);
+  $worksheet1->write_string(0,1,"Name",$formatot);
+  $worksheet1->write_string(0,2,"Adress",$formatot);
+  $worksheet1->write_string(0,3,"Phone Number",$formatot);
+  $worksheet1->write_string(0,4,"Salary",$formatot);
+
+
+for($i=1;$i<=200;$i++)
+{
+  
+  if($i==10)
+	{
+
+
+	    $formatot1 = $workbook->add_format();
+  $formatot1->set_fg_color('red');
+	  $worksheet1->write($i,0,"22222222-2",IDX_FONT0, ALIGN_CENTER, CELL_LOCKED + CELL_HIDDEN);
+  $worksheet1->write($i,1,"John Smith",$formatot1);
+  $worksheet1->write($i,2,"Main Street 100",$formatot1);
+  $worksheet1->write($i,3,"02-5551234",$formatot1);
+  $worksheet1->write($i,4,100,$formatot1);
+	}
+	else
+	{
+		$worksheet1->write($i,0,"22222222-2", 0, 0, FONT_1, ALIGN_CENTER, CELL_LOCKED);
+  $worksheet1->write($i,1,"John Smith");
+  $worksheet1->write($i,2,"Main Street 100");
+  $worksheet1->write($i,3,"02-5551234");
+  $worksheet1->write($i,4,100);
+	}
+   
+   
+
+}
+
+
+
+  $workbook->close();
+  
+?>
